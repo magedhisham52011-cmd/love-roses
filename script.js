@@ -1,10 +1,10 @@
 var settings = {
   particles: {
-    length:   500,
-    duration:   2,
-    velocity: 100,
-    effect: -0.75,
-    size:      30,
+    length:   600, // زيادة الجزيئات للكثافة
+    duration:   2.5, 
+    velocity: 120, 
+    effect: -0.85, 
+    size:      25, // حجم الجزيئات المثالي
   },
 };
 
@@ -17,6 +17,14 @@ var Point = (function() {
   }
   Point.prototype.clone = function() {
     return new Point(this.x, this.y);
+  };
+  Point.prototype.normalize = function() {
+    var length = Math.sqrt(this.x * this.x + this.y * this.y);
+    if (length !== 0) {
+      this.x /= length;
+      this.y /= length;
+    }
+    return this;
   };
   return Point;
 })();
@@ -143,7 +151,11 @@ var ParticlePool = (function() {
       context.lineTo(point.x, point.y);
     }
     context.closePath();
-    context.fillStyle = '#0080ff'; // لون جزيئات القلب الأزرق المضيء
+    
+    // تأثير التوهج المضيء للجزيئات (Cyan / Neon Blue)
+    context.fillStyle = '#00f0ff';
+    context.shadowBlur = 10;
+    context.shadowColor = '#00a1ff';
     context.fill();
     
     var image = new Image();
@@ -160,9 +172,9 @@ var ParticlePool = (function() {
     var amount = particleRate * deltaTime;
     for (var i = 0; i < amount; i++) {
       var pos = pointOnHeart(Math.random() * 2 * Math.PI - Math.PI);
-      var dir = pos.clone();
+      var dir = pos.clone().normalize();
       var length = Math.random() * 10 + 5; 
-      particles.add(canvas.width / 2 + pos.x, canvas.height / 2 - pos.y, dir.x / length, -dir.y / length);
+      particles.add(canvas.width / 2 + pos.x, canvas.height / 2 - pos.y, dir.x * settings.particles.velocity, -dir.y * settings.particles.velocity);
     }
     particles.update(deltaTime);
     particles.draw(context, image);
