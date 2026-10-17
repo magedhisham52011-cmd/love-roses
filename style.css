@@ -13,11 +13,12 @@ html, body {
 .title {
     position: absolute;
     top: 15%;
-    color: #4da6ff;
-    font-size: 3rem;
+    color: #00e5ff; /* لون أزرق نيون مضيء */
+    font-size: 3.5rem;
     text-align: center;
-    font-style: italic;
-    text-shadow: 0 0 10px rgba(77, 166, 255, 0.8), 0 0 20px rgba(77, 166, 255, 0.5);
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px #00e5ff, 0 0 20px #00e5ff, 0 0 40px #00a1ff;
     z-index: 10;
     animation: pulse 2s infinite alternate;
 }
@@ -31,10 +32,10 @@ canvas {
 @keyframes pulse {
     from { 
         transform: scale(1); 
-        text-shadow: 0 0 10px rgba(77, 166, 255, 0.8); 
+        text-shadow: 0 0 10px #00e5ff, 0 0 20px #00e5ff; 
     }
     to { 
         transform: scale(1.05); 
-        text-shadow: 0 0 25px rgba(77, 166, 255, 0.9), 0 0 40px rgba(0, 102, 204, 0.6); 
+        text-shadow: 0 0 20px #00e5ff, 0 0 40px #0051ff, 0 0 60px #0051ff; 
     }
 }
